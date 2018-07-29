@@ -1,0 +1,128 @@
+package 达达租车系统;
+//主函数
+import java.util.Scanner;
+public class zc {
+    /**
+     * @2016.11.8
+     * @Ziv
+     * @ 主函数，用于测试
+     */
+    public static void main(String[] args) {
+        //初始化各车型属性,多态，父类对象指向子类
+        Car Aodi = new Aodi();
+        Car Mazd = new Mazd();
+        Car Pikax = new Pikax6();
+        Car Jinlong = new Jinlong();
+        Car Songhj = new Songhj();
+        Car Yiwk = new Yiwk();
+         
+        System.out.println("======= 欢迎进入达达租车系统 =======");
+        System.out.println("是否进行租车：0.是  1.否");
+        Scanner sc1 = new Scanner(System.in);
+        int flag = sc1.nextInt();
+        if(flag == 1)
+        {
+            System.out.println("欢迎下次再来！");
+            return;
+        }
+        else
+        {
+            System.out.println("请根据需要选择以下车型：");
+            System.out.println("序号\t汽车名称\t\t租金\t\t容量");
+            System.out.println("1.\t"+Aodi.getName()+"\t\t"+Aodi.getPrice()
+                    +"元/每天\t载人："+Aodi.getHum()+"人");//\t跳至下一制表符
+            System.out.println("2.\t"+Mazd.getName()+"\t\t"+Mazd.getPrice()
+                    +"元/每天\t载人："+Mazd.getHum()+"人");
+            System.out.println("3.\t"+Jinlong.getName()+"\t\t"+Jinlong.getPrice()
+                    +"元/每天\t载人："+Jinlong.getHum()+"人");
+            System.out.println("4.\t"+Songhj.getName()+"\t\t"+Songhj.getPrice()
+                    +"元/每天\t载货："+Songhj.getCapa()+"吨");
+            System.out.println("5.\t"+Yiwk.getName()+"\t\t"+Yiwk.getPrice()
+                    +"元/每天\t载货："+Yiwk.getCapa()+"吨");
+            System.out.println("6.\t"+Pikax.getName()+"\t\t"+Pikax.getPrice()
+                    +"元/每天\t载货："+Pikax.getHum()+"人"+Pikax.getCapa()+"吨");
+             
+            System.out.println("=======请输入您要租的数量=======");
+            Scanner sc2 = new Scanner(System.in);
+            int num = sc2.nextInt();
+            double TotalPrice = 0;//总价格
+            int Totalcapa = 0;//总载货量
+            double Totalhum = 0;//总载人量
+            String[] a = new String[6];
+            for(int i = 1;i <= num;i ++)
+            {
+                Scanner sc3 = new Scanner(System.in);
+                int order = sc3.nextInt();
+                switch(order)
+                {
+                    case 1:
+                        TotalPrice += Aodi.getPrice();
+                        Totalhum +=Aodi.getHum();
+                        a[0] = Aodi.getName();
+                        break;
+                    case 2:
+                        TotalPrice += Mazd.getPrice();
+                        Totalhum +=Mazd.getHum();
+                        a[1] = Mazd.getName();
+                        break;
+                    case 3:
+                        TotalPrice += Jinlong.getPrice();
+                        Totalhum += Jinlong.getHum();
+                        a[2] = Jinlong.getName();
+                        break;
+                    case 4:
+                        TotalPrice += Songhj.getPrice();
+                        Totalcapa +=Songhj.getCapa();
+                        a[3] = Songhj.getName();
+                        break;
+                    case 5:
+                        TotalPrice += Yiwk.getPrice();
+                        Totalcapa +=Yiwk.getCapa();
+                        a[4] = Yiwk.getName();
+                        break;
+                    case 6:
+                        TotalPrice += Pikax.getPrice();
+                        Totalhum +=Pikax.getHum();
+                        Totalcapa += Pikax.getCapa();
+                        a[5] = Pikax.getName();
+                        break;
+                }
+     
+            }
+             
+            System.out.println("=======输入你要租的天数=======");
+            Scanner sc4 = new Scanner(System.in);
+            int n = sc4.nextInt();
+            TotalPrice *= n;
+             
+            System.out.println("**********您的账单***********");
+            StringBuilder builder = new StringBuilder();
+            for(int i = 0; i < a.length;i++){
+                if(a[i] != null && (i < 3||i == 5)){ //编号为0,1,2,6的车可以载人
+                    builder.append(a[i]+"\t");
+                }
+            }
+            if(builder.length()!=0)
+            {
+                System.out.println("可载人的车有：");
+                System.out.println(builder+"\n共载人："+Totalhum+"人\n");
+            }
+            StringBuilder builder2 = new StringBuilder();
+            for(int i = 0;i<a.length;i++){
+                if(a[i] != null && i>3){//编号为3,4,5的车可以载货
+                    builder2.append(a[i]+"\t");
+                }
+            }
+            if(builder2.length()!=0){
+                System.out.println("可载货的车有：");
+                System.out.println(builder2+"\n共载货："+Totalcapa+"吨\n");
+                 
+            }
+            System.out.println("租车的总价格为："+TotalPrice+"元");
+        }
+         
+         
+         
+    }
+ 
+}
